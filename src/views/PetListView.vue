@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span id="header">
+    <div id="header">
       <img id="logo" :src="require('@/assets/logo/dogument_icon.png')" />
       <h1>Dogument</h1>
     </span>
@@ -36,7 +36,7 @@ export default {
 <style scoped>
 #header {
   text-align: left;
-  display: inline;
+  padding-bottom: 24px;
 }
 
 #logo {
@@ -47,5 +47,9 @@ export default {
 #header h1 {
   display: inline;
   vertical-align: bottom;
+}
+
+#petlist-msg {
+  text-align: center;
 }
 </style>
