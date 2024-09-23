@@ -1,0 +1,39 @@
+name: Create Release
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  Release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GH_TOKEN }}
+    - name: Get Next Version
+      id: semver
+      uses: ietf-tools/semver-action@v1
+      with:
+        branch: main
+        patchList: fix,bugfix,security
+        noVersionBumpBehavior: silent
+        token: ${{ secrets.GH_TOKEN }}
+    - name: Bump NPM Version
+      run: npm version ${{ steps.semver.outputs.bump }}
+    - name: Commit Release to repo
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Create ${{ steps.semver.outputs.next }} Release [skip ci]
+        tagging_message: ${{ steps.semver.outputs.next }}
+    - name: Create Release
+      uses: ncipollo/release-action@v1
+      if: ${{ steps.semver.outputs.bump }} != "none"
+      with:
+        name: ${{ steps.semver.outputs.next }}
+        body: Changelog Contents
+        tag: ${{ steps.semver.outputs.next }}
+        token: ${{ github.token }}
+        makeLatest: true
+        generateReleaseNotes: true
+        skipIfReleaseExists: true
