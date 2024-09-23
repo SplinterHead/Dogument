@@ -1,27 +1,15 @@
-# Dogument
+# ![Dogument logo](src/assets/logo//favicon-32x32.png) Dogument
 
-System for tracking and monitoring things important to your pet
+The everything tracker for monitoring things important to your pet
 
-## Deploying Dogument
+## Running Dogument
 
-Dogument is bundled as a Docker container which can be built locally, or pulled from Docker Hub.
+First run the API, this will initialise the database and run the server on port 3000
 
-### Docker CLI
-```sh 
-docker run -d \
-  -p 3000:3000 \
-  -p 8080:8080 \
-  splinterhead27/dogument
-```
+`npm run db`
 
-### Docker Compose
-```yaml
-services:
-  dogument:
-    image: splinterhead27/dogument
-    container_name: dogument
-    ports:
-    - 3000:3000
-    - 8080:8080
-    restart: unless-stopped
-```
+Next, run the webapp
+
+`npm run serve`
+
+Dogument can now be accessed via http://localhost:8080
