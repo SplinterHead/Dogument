@@ -1,13 +1,19 @@
 <template>
   <div>
     <div id="header">
-      <img id="logo" :src="require('@/assets/logo/dogument_icon.png')" />
-      <h1>Dogument</h1>
+      <span id="header-left">
+        <img id="logo" :src="require('@/assets/logo/dogument_icon.png')" />
+        <h1>Dogument</h1>
+      </span>
+      <span id="header-right">
+        <b-button variant="primary" @click="$bvModal.show('new-pet-modal')">
+          Add new pet
+        </b-button>
+      </span>
     </div>
     <div id="petlist-msg" v-if="pets.length == 0">
       There are no pets listed
       <br />
-      <b-button @click="$bvModal.show('new-pet-modal')">Add new pet</b-button>
     </div>
     <div id="petlist-list" v-else>
       <pet-list-card
@@ -53,9 +59,17 @@ export default {
 </script>
 
 <style scoped>
-#header {
-  text-align: left;
+.header {
+  width: 50%;
   padding-bottom: 24px;
+}
+
+#header-left {
+  text-align: left;
+}
+
+#header-right {
+  float: right;
 }
 
 #logo {
